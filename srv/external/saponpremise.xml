@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="Producto" EntityType="CatalogService.Producto">
+          <NavigationPropertyBinding Path="marca" Target="Marca"/>
+          <NavigationPropertyBinding Path="categoria" Target="Categoria"/>
+          <NavigationPropertyBinding Path="texts" Target="Producto_texts"/>
+          <NavigationPropertyBinding Path="localized" Target="Producto_texts"/>
+        </EntitySet>
+        <EntitySet Name="Categoria" EntityType="CatalogService.Categoria">
+          <NavigationPropertyBinding Path="texts" Target="Categoria_texts"/>
+          <NavigationPropertyBinding Path="localized" Target="Categoria_texts"/>
+        </EntitySet>
+        <EntitySet Name="Marca" EntityType="CatalogService.Marca">
+          <NavigationPropertyBinding Path="texts" Target="Marca_texts"/>
+          <NavigationPropertyBinding Path="localized" Target="Marca_texts"/>
+        </EntitySet>
+        <EntitySet Name="Producto_texts" EntityType="CatalogService.Producto_texts"/>
+        <EntitySet Name="Categoria_texts" EntityType="CatalogService.Categoria_texts"/>
+        <EntitySet Name="Marca_texts" EntityType="CatalogService.Marca_texts"/>
+      </EntityContainer>
+      <EntityType Name="Producto">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="modelo" Type="Edm.String" MaxLength="50"/>
+        <Property Name="descripcion" Type="Edm.String" MaxLength="100"/>
+        <Property Name="memoria_ram" Type="Edm.String" MaxLength="50"/>
+        <Property Name="almacenamiento" Type="Edm.String" MaxLength="50"/>
+        <Property Name="precio" Type="Edm.Decimal" Scale="2" Precision="12"/>
+        <Property Name="color" Type="Edm.String" MaxLength="50"/>
+        <Property Name="imagen" Type="Edm.String" MaxLength="1000"/>
+        <NavigationProperty Name="marca" Type="CatalogService.Marca">
+          <ReferentialConstraint Property="marca_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="marca_ID" Type="Edm.Int32"/>
+        <NavigationProperty Name="categoria" Type="CatalogService.Categoria">
+          <ReferentialConstraint Property="categoria_ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+        <Property Name="categoria_ID" Type="Edm.Int32"/>
+        <NavigationProperty Name="texts" Type="Collection(CatalogService.Producto_texts)">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="CatalogService.Producto_texts">
+          <ReferentialConstraint Property="ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Categoria">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="categoria" Type="Edm.String" MaxLength="100"/>
+        <NavigationProperty Name="texts" Type="Collection(CatalogService.Categoria_texts)">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="CatalogService.Categoria_texts">
+          <ReferentialConstraint Property="ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Marca">
+        <Key>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="marca" Type="Edm.String" MaxLength="100"/>
+        <NavigationProperty Name="texts" Type="Collection(CatalogService.Marca_texts)">
+          <OnDelete Action="Cascade"/>
+        </NavigationProperty>
+        <NavigationProperty Name="localized" Type="CatalogService.Marca_texts">
+          <ReferentialConstraint Property="ID" ReferencedProperty="ID"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Producto_texts">
+        <Key>
+          <PropertyRef Name="locale"/>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="modelo" Type="Edm.String" MaxLength="50"/>
+        <Property Name="descripcion" Type="Edm.String" MaxLength="100"/>
+        <Property Name="memoria_ram" Type="Edm.String" MaxLength="50"/>
+        <Property Name="almacenamiento" Type="Edm.String" MaxLength="50"/>
+        <Property Name="color" Type="Edm.String" MaxLength="50"/>
+        <Property Name="imagen" Type="Edm.String" MaxLength="1000"/>
+      </EntityType>
+      <EntityType Name="Categoria_texts">
+        <Key>
+          <PropertyRef Name="locale"/>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="categoria" Type="Edm.String" MaxLength="100"/>
+      </EntityType>
+      <EntityType Name="Marca_texts">
+        <Key>
+          <PropertyRef Name="locale"/>
+          <PropertyRef Name="ID"/>
+        </Key>
+        <Property Name="locale" Type="Edm.String" MaxLength="14" Nullable="false"/>
+        <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="marca" Type="Edm.String" MaxLength="100"/>
+      </EntityType>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

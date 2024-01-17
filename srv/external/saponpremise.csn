@@ -1,0 +1,311 @@
+{
+ "meta": {
+  "creator": "cds-dk 7.5.1"
+ },
+ "$version": "2.0",
+ "definitions": {
+  "saponpremise.Producto": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "ID": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true
+    },
+    "modelo": {
+     "type": "cds.String",
+     "length": 50
+    },
+    "descripcion": {
+     "type": "cds.String",
+     "length": 100
+    },
+    "memoria_ram": {
+     "type": "cds.String",
+     "length": 50
+    },
+    "almacenamiento": {
+     "type": "cds.String",
+     "length": 50
+    },
+    "precio": {
+     "type": "cds.Decimal",
+     "precision": 12,
+     "scale": 2
+    },
+    "color": {
+     "type": "cds.String",
+     "length": 50
+    },
+    "imagen": {
+     "type": "cds.String",
+     "length": 1000
+    },
+    "marca": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "saponpremise.Marca",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "marca",
+        "ID"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "marca_ID"
+       ]
+      }
+     ]
+    },
+    "marca_ID": {
+     "type": "cds.Integer"
+    },
+    "categoria": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "saponpremise.Categoria",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "categoria",
+        "ID"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "categoria_ID"
+       ]
+      }
+     ]
+    },
+    "categoria_ID": {
+     "type": "cds.Integer"
+    },
+    "texts": {
+     "type": "cds.Composition",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "saponpremise.Producto_texts",
+     "cardinality": {
+      "max": "*"
+     }
+    },
+    "localized": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "saponpremise.Producto_texts",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "localized",
+        "ID"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "ID"
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "saponpremise.Categoria": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "ID": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true
+    },
+    "categoria": {
+     "type": "cds.String",
+     "length": 100
+    },
+    "texts": {
+     "type": "cds.Composition",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "saponpremise.Categoria_texts",
+     "cardinality": {
+      "max": "*"
+     }
+    },
+    "localized": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "saponpremise.Categoria_texts",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "localized",
+        "ID"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "ID"
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "saponpremise.Marca": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "ID": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true
+    },
+    "marca": {
+     "type": "cds.String",
+     "length": 100
+    },
+    "texts": {
+     "type": "cds.Composition",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "saponpremise.Marca_texts",
+     "cardinality": {
+      "max": "*"
+     }
+    },
+    "localized": {
+     "type": "cds.Association",
+     "@cds.ambiguous": "missing on condition?",
+     "target": "saponpremise.Marca_texts",
+     "cardinality": {
+      "max": 1
+     },
+     "on": [
+      {
+       "ref": [
+        "localized",
+        "ID"
+       ]
+      },
+      "=",
+      {
+       "ref": [
+        "ID"
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "saponpremise.Producto_texts": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "locale": {
+     "key": true,
+     "type": "cds.String",
+     "length": 14,
+     "notNull": true
+    },
+    "ID": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true
+    },
+    "modelo": {
+     "type": "cds.String",
+     "length": 50
+    },
+    "descripcion": {
+     "type": "cds.String",
+     "length": 100
+    },
+    "memoria_ram": {
+     "type": "cds.String",
+     "length": 50
+    },
+    "almacenamiento": {
+     "type": "cds.String",
+     "length": 50
+    },
+    "color": {
+     "type": "cds.String",
+     "length": 50
+    },
+    "imagen": {
+     "type": "cds.String",
+     "length": 1000
+    }
+   }
+  },
+  "saponpremise.Categoria_texts": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "locale": {
+     "key": true,
+     "type": "cds.String",
+     "length": 14,
+     "notNull": true
+    },
+    "ID": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true
+    },
+    "categoria": {
+     "type": "cds.String",
+     "length": 100
+    }
+   }
+  },
+  "saponpremise.Marca_texts": {
+   "kind": "entity",
+   "@cds.external": true,
+   "@cds.persistence.skip": true,
+   "elements": {
+    "locale": {
+     "key": true,
+     "type": "cds.String",
+     "length": 14,
+     "notNull": true
+    },
+    "ID": {
+     "key": true,
+     "type": "cds.Integer",
+     "notNull": true
+    },
+    "marca": {
+     "type": "cds.String",
+     "length": 100
+    }
+   }
+  },
+  "saponpremise": {
+   "kind": "service",
+   "@cds.external": true
+  }
+ }
+}
